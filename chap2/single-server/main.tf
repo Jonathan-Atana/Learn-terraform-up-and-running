@@ -25,6 +25,8 @@ resource "aws_instance" "my_instance" {
               echo "Hello, World" > index.html
               nohup busybox httpd -f -p ${var.server_http_port} &
               EOF
+
+  user_data_replace_on_change = true  # Recreate the instance if user_data changes
   tags = {
     Name = "terraform-example"
   }
