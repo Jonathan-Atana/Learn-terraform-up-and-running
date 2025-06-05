@@ -1,11 +1,11 @@
 # Define input variables
-variable "server_http_port" {
+variable "custom_http_port" {
   description = "The port the server will use for HTTP requests"
   type        = number
   default     = 8080
 }
 
-variable "alb_http_port" {
+variable "default_http_port" {
   description = "The port the ALB will use for HTTP requests"
   type        = number
   default     = 80

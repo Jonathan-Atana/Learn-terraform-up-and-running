@@ -9,7 +9,7 @@ resource "aws_lb" "main" {
 # Define a listener for the ALB
 resource "aws_lb_listener" "main" {
   load_balancer_arn = aws_lb.main.arn
-  port              = var.alb_http_port
+  port              = var.default_http_port
   protocol          = "HTTP"
 
   # return a simple 404 page by default
@@ -22,7 +22,7 @@ resource "aws_lb_listener" "main" {
 # Define the target group for the ALB
 resource "aws_lb_target_group" "main" {
   name     = "alb-tg"
-  port     = var.server_http_port
+  port     = var.custom_http_port
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id
 
@@ -31,7 +31,7 @@ resource "aws_lb_target_group" "main" {
     enabled             = true
     protocol            = "HTTP"
     port                = "traffic-port"
-    matcher             = "200"
+    matcher             = 200
     interval            = 10
     timeout             = 6
     healthy_threshold   = 3

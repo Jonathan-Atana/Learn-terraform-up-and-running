@@ -13,15 +13,6 @@ provider "aws" {
   region = "us-east-1"
 }
 
-locals {
-  user_data = <<-EOF
-              #!/bin/bash
-              sudo yum install busybox httpd -y
-              echo "Hello, World" > index.html
-              nohup busybox httpd -f -p ${var.server_http_port} &
-              EOF
-}
-
 # Create a launch template for an ASG
 resource "aws_launch_template" "main" {
   name = "my-launch-template"
@@ -30,9 +21,18 @@ resource "aws_launch_template" "main" {
   vpc_security_group_ids = [aws_security_group.ec2.id]
   instance_type          = "t2.micro"
 
-  user_data = base64encode(local.user_data)
+  user_data = base64encode(
+    templatefile(
+      "${path.root}/templates/user-data.sh",
+      {
+        custom_http_port = var.custom_http_port # apache will be listening on this port (8080)
+        db_port          = data.terraform_remote_state.mysql.outputs.db-port
+        db_address       = data.terraform_remote_state.mysql.outputs.db-address
+      }
+    )
+  )
 
-  # Required when using a launch configuration with an ASG
+  # Required when using a launch configuration/ template with an ASG
   lifecycle {
     create_before_destroy = true
   }
