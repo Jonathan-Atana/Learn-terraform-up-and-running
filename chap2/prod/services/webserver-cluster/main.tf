@@ -14,7 +14,7 @@ provider "aws" {
 
 # module to create the webserver-cluster
 module "webserver_cluster" {
-  source = "../../../modules/services/webserver-cluster"
+  source = "github.com/Jonathan-Atana/terraform-modules/services/webserver-cluster"
 
   cluster_name = "prod-webservers"
 

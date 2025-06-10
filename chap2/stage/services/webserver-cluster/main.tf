@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 module "webserver_cluster" {
-  source = "../../../modules/services/webserver-cluster"
+  source = "github.com/Jonathan-Atana/terraform-modules/services/webserver-cluster"
 
   cluster_name = "stage-webservers"
   min_size     = 2

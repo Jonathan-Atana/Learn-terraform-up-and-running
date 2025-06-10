@@ -13,7 +13,7 @@ provider "aws" {
 }
 
 module "mysql" {
-  source = "../../../modules/storage/mysql"
+  source = "github.com/Jonathan-Atana/terraform-modules/storage/mysql"
 
   identifier_prefix = "stage-mysql-"
 
