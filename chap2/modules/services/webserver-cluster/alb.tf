@@ -1,6 +1,6 @@
 # Create an Application Load Balancer (ALB) to route traffic to the EC2 instances
 resource "aws_lb" "main" {
-  name               = "my-alb"
+  name               = "${var.cluster_name}-alb"
   load_balancer_type = "application"
   subnets            = data.aws_subnets.default.ids
   security_groups    = [aws_security_group.alb.id]
@@ -21,7 +21,7 @@ resource "aws_lb_listener" "main" {
 
 # Define the target group for the ALB
 resource "aws_lb_target_group" "main" {
-  name     = "alb-tg"
+  name     = "${var.cluster_name}-alb-tg"
   port     = var.custom_http_port
   protocol = "HTTP"
   vpc_id   = data.aws_vpc.default.id

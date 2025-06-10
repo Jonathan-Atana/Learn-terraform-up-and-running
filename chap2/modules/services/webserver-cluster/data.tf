@@ -36,9 +36,7 @@ data "aws_ami" "main" { # get the latest specified ami
 }
 
 data "terraform_remote_state" "mysql" { # Get the MySQL database state
-  backend = "local"
+  backend = var.backend
 
-  config = {
-    path = "../../storage/mysql/terraform.tfstate"
-  }
+  config = var.config
 }

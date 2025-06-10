@@ -15,7 +15,7 @@ provider "aws" {
 module "mysql" {
   source = "../../../modules/storage/mysql"
 
-  identifier_prefix = "stage-mysql-"
+  identifier_prefix = "prod-mysql-"
 
   db_username = var.db_username
   db_password = var.db_password
