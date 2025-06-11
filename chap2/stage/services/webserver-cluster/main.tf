@@ -1,3 +1,24 @@
+/**
+ * # Description
+ *
+ * This module is designed to create a cluster of web server (2) using an Auto Scalling Group (ASG), which serve as target groups to a load balancer.
+ * - The web servers accept inbound traffic only from the ALB's security group, and can route traffic to anywhere.
+ * - The ALB allows incomming traffic on ports 80, 443 (HTTP and HTTPS), and 12345 (for testing) from anywhere, and routes it to the web servers.
+ *
+ * ## Usage
+ *
+ * To use this configuration, ensure you have the necessary AWS credentials set up and run:
+ *
+ * ```bash
+ * terraform init
+ * terraform plan
+ * terraform apply
+ * ```
+ *
+ * ---
+ *
+ */
+
 # Terraform block
 terraform {
   required_providers {
@@ -13,7 +34,7 @@ provider "aws" {
 }
 
 module "webserver_cluster" {
-  source = "github.com/Jonathan-Atana/terraform-modules/services/webserver-cluster"
+  source = "github.com/Jonathan-Atana/terraform-modules/services/webserver-cluster?ref=v1.0.0"
 
   cluster_name = "stage-webservers"
   min_size     = 2

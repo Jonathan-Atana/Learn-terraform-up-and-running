@@ -1,3 +1,22 @@
+/**
+ * # Description
+ *
+ * This Terraform configuration sets up a MySQL database
+ *
+ * ## Usage
+ *
+ * To use this configuration, ensure you have the necessary AWS credentials set up and run:
+ *
+ * ```bash
+ * terraform init
+ * terraform plan
+ * terraform apply
+ * ```
+ *
+ * ---
+ *
+ */
+
 # Terraform block
 terraform {
   required_providers {
@@ -13,7 +32,7 @@ provider "aws" {
 }
 
 module "mysql" {
-  source = "github.com/Jonathan-Atana/terraform-modules/storage/mysql"
+  source = "github.com/Jonathan-Atana/terraform-modules/storage/mysql?ref=v1.0.0"
 
   identifier_prefix = "prod-mysql-"
 
